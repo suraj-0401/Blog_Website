@@ -28,6 +28,7 @@ if (!MONGO_URL) {
   console.error('MONGO_URL environment variable is not set');
   process.exit(1);
 }
+
 // Setup express-fileupload for handling file uploads
 app.use(fileUpload({
   useTempFiles: true,
