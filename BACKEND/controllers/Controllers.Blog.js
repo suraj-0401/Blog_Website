@@ -5,8 +5,7 @@ import mongoose from 'mongoose';
 // create blogs
 export const createBlog = async (req, res) => {
     // Check if a file was uploaded
-   
-    if (!req.files || Object.keys(req.files).length === 0) {
+   if (!req.files || Object.keys(req.files).length === 0) {
         return res.status(400).json({ message: "Blog image is required" });
     }
 
@@ -68,7 +67,7 @@ export const createBlog = async (req, res) => {
             }
         };
         const blog = await Blog.create(blogData);
-        return res.status(201).json({ message: "Blog created successfully", blog });
+        return res.status(201).json({ message: "Blog created successfully", blogId:blog._id });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Internal Server error" });
@@ -149,7 +148,7 @@ export const getAllBlogs = async (req, res) => {
 //  my blogs
 export const getMyBlog = async (req, res) => {
   try {
-    const createdBy = req.user._id;
+    const createdBy = req.user._id; 
     const myBlogs = await Blog.find({ createdBy: createdBy }).exec();
     res.status(200).json(myBlogs);
   } catch (error) {
